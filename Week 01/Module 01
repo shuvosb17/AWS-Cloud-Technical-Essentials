@@ -1,0 +1,140 @@
+# Introduction to AWS: Key Concepts
+
+## 1. What is AWS and Cloud Computing?
+
+**AWS (Amazon Web Services)** is a platform that provides cloud computing services.  
+**Cloud computing** means using remote servers on the internet to store, manage, and process data, instead of using your own computer or local servers.
+
+### Why Use the Cloud?
+- **Scalability:** Easily increase or decrease resources as needed.
+- **Cost-effective:** Pay only for what you use.
+- **Reliability:** High availability and fault tolerance.
+- **Security:** Built-in security features.
+
+---
+
+## 2. AWS Global Infrastructure
+
+AWS is made up of **Regions** and **Availability Zones**.
+
+````plaintext
++-------------------+         +-------------------+
+|    Region 1       |         |    Region 2       |
+|  (e.g., US-East)  |         |  (e.g., EU-West)  |
+|  +-------------+  |         |  +-------------+  |
+|  | AZ1         |  |         |  | AZ1         |  |
+|  | AZ2         |  |         |  | AZ2         |  |
+|  +-------------+  |         |  +-------------+  |
++-------------------+         +-------------------+
+````
+
+- **Region:** A geographic area (like US-East, EU-West).
+- **Availability Zone (AZ):** A data center within a region. Each region has multiple AZs for redundancy.
+
+---
+
+## 3. Building an App on AWS
+
+You’ll build an **Employee Directory App** (CRUD: Create, Read, Update, Delete).
+
+### Main AWS Services Used
+
+````plaintext
++-------------------+
+|  User's Browser   |
++--------+----------+
+         |
+         v
++-------------------+
+|   Load Balancer   |  <-- Distributes traffic
++--------+----------+
+         |
+         v
++-------------------+
+|      EC2          |  <-- Virtual servers (backend code)
++--------+----------+
+         |
+         v
++-------------------+
+|      RDS          |  <-- Database (employee data)
++-------------------+
+
++-------------------+
+|       S3          |  <-- Stores images/files
++-------------------+
+
++-------------------+
+|      IAM          |  <-- Security & access control
++-------------------+
+
++-------------------+
+|   CloudWatch      |  <-- Monitoring
++-------------------+
+````
+
+### How the App Works
+- **VPC (Virtual Private Cloud):** Your own private network in AWS.
+- **EC2:** Runs your app’s backend code.
+- **RDS:** Stores employee data in a database.
+- **S3:** Stores employee photos and other files.
+- **Elastic Load Balancer:** Distributes incoming traffic to multiple EC2 instances.
+- **Auto Scaling:** Automatically adds/removes EC2 instances based on demand.
+- **IAM:** Manages who can access what in AWS.
+- **CloudWatch:** Monitors your app’s health and performance.
+
+---
+
+## 4. Security Basics
+
+- **IAM (Identity and Access Management):** Controls who can do what in your AWS account.
+- **Start Secure:** Set up security from the beginning.
+
+---
+
+## 5. Learning Approach
+
+- **Theory:** Understand the concepts.
+- **Technical Knowledge:** Learn how to use AWS services.
+- **Vocabulary:** Get familiar with AWS terms.
+- **Practice:** Build and experiment with real AWS resources.
+
+---
+
+## 6. Fun Extras
+
+- **Meowzy and Fluffy:** Mascots that give you tips and best practices during the course.
+
+---
+
+# Summary Diagram
+
+````plaintext
++-------------------+      +-------------------+
+|   User's Browser  | ---> |   Load Balancer   |
++-------------------+      +-------------------+
+                                   |
+                                   v
+                        +-------------------+
+                        |       EC2         |
+                        +-------------------+
+                                   |
+                                   v
+                        +-------------------+
+                        |       RDS         |
+                        +-------------------+
+                                   |
+                                   v
+                        +-------------------+
+                        |       S3          |
+                        +-------------------+
+
+Other Services:
+- IAM (Security)
+- CloudWatch (Monitoring)
+- Auto Scaling (Scalability)
+````
+
+---
+
+**In summary:**  
+You’ll learn AWS by building a real app, understanding both the theory and the practical steps, and using diagrams to see how everything fits together.
