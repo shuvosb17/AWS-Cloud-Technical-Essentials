@@ -1325,5 +1325,58 @@ With **AWS IAM Identity Center**:
 * Lets you manage lots of users, apps, and AWS accounts **easily and safely**.
 * Works well with outside login systems like Google or Microsoft = less work for you!
 
+
+
+# 🛡️ Demo Lab: AWS IAM (Roles, Users, Groups, and Access Keys)
+
+## What Happened in the Demo?
+
+1. **Created an IAM Role**
+    - Chose EC2 as the trusted entity (who can use the role).
+    - Attached permissions (S3 and DynamoDB full access).
+    - Gave the role a name (e.g., EmployeeWebApp).
+    - Now, EC2 instances can use this role to access S3 and DynamoDB securely.
+2. **Created an IAM User**
+    - Named the user (e.g., EC2Admin).
+    - Enabled console access (so the user can log in to AWS website).
+    - Added the user to a new group (e.g., EC2Admins).
+    - Attached a policy to the group (EC2 full access).
+    - User inherits permissions from the group.
+3. **Created Access Keys**
+    - Generated access keys for the user (for command line or code access).
+    - Demonstrated how to deactivate and delete access keys for security.
+
 ---
+
+## 🖼️ Diagram: IAM Demo Flow
+
+```
++-------------------+        +-------------------+
+|   EC2 Instance    | -----> |   IAM Role        | (Temporary access to S3/DynamoDB)
++-------------------+        +-------------------+
+
++-------------------+        +-------------------+
+|   IAM User        | -----> |   IAM Group       | (e.g., EC2Admins)
++-------------------+        +-------------------+
+         |                           |
+         v                           v
+   [Access Keys]               [Policy: EC2 Full Access]
+
+```
+
+---
+
+## 🐱 Real-World Example
+
+Imagine you run a cat photo website:
+
+- Your web server (EC2) needs to save photos to cloud storage (S3). You give it a role so it can do this safely, without sharing passwords.
+- You hire an admin (EC2Admin) and put them in a group (EC2Admins) so they can manage servers, but not everything else.
+- If your admin needs to use the AWS command line, you give them access keys—but you can deactivate or delete these keys anytime for security.
+
+---
+
+**In summary:**
+
+You use IAM roles for secure, temporary access between AWS services, IAM users and groups for people, and access keys for programmatic access. Always manage permissions carefully for better security!
 
