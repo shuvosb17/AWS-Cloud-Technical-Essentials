@@ -1380,3 +1380,66 @@ Imagine you run a cat photo website:
 
 You use IAM roles for secure, temporary access between AWS services, IAM users and groups for people, and access keys for programmatic access. Always manage permissions carefully for better security!
 
+
+# 🛡️ IAM Roles and the Employee Directory Application
+
+## What’s Happening?
+
+- Your **Employee Directory App** runs on an EC2 server.
+- This app needs to talk to AWS services like S3 (for photos) and DynamoDB (for employee data).
+- To do this securely, the EC2 server uses an **IAM role**.
+
+---
+
+## What is an IAM Role (in this context)?
+
+- An **IAM role** is like a temporary badge that gives your app permission to use certain AWS services.
+- The role provides **temporary credentials** (like a key card that expires and refreshes automatically).
+- The AWS SDK (the code library your app uses) automatically gets and refreshes these credentials for you.
+
+---
+
+## Why Use a Role?
+
+- **No passwords or keys are stored in your app**—much safer!
+- If the app didn’t have a role, it couldn’t access S3 or DynamoDB at all.
+
+---
+
+## 🖼️ Diagram: How It Works
+
+```
++-------------------+
+|   EC2 Instance    |  <-- Runs your app
++-------------------+
+         |
+         v
++-------------------+
+|   IAM Role        |  <-- Temporary credentials (auto-rotated)
++-------------------+
+         |
+         v
++-------------------+      +-------------------+
+|      S3           |      |   DynamoDB        |
+| (Store photos)    |      | (Employee data)   |
++-------------------+      +-------------------+
+
+```
+
+---
+
+## 🐱 Real-World Example
+
+Imagine your app is a delivery driver:
+
+- The IAM role is like a badge that lets the driver into the warehouse (S3) and the office (DynamoDB).
+- The badge is temporary and updates itself, so it’s always secure.
+- Without the badge, the driver can’t get in—no deliveries!
+
+---
+
+## In Summary
+
+- The EC2 instance uses an IAM role to get temporary, secure access to AWS services.
+- The app never stores permanent passwords or keys.
+- This is the safest and most common way for AWS apps to access other AWS services.
