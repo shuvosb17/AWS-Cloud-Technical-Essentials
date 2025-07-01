@@ -1436,7 +1436,6 @@ Imagine your app is a delivery driver:
 - The badge is temporary and updates itself, so it’s always secure.
 - Without the badge, the driver can’t get in—no deliveries!
 
----
 
 ## In Summary
 
