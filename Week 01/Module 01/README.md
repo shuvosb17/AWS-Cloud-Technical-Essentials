@@ -1440,6 +1440,6 @@ Imagine your app is a delivery driver:
 
 ## In Summary
 
-- The EC2 instance uses an IAM role to get temporary, secure access to AWS services.
-- The app never stores permanent passwords or keys.
-- This is the safest and most common way for AWS apps to access other AWS services.
+- The EC2 instance uses an IAM role to get temporary, secure access to AWS services
+- The app never stores permanent passwords or keys
+- This is the safest and most common way for AWS apps to access other AWS services
