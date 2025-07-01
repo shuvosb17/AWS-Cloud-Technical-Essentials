@@ -13,7 +13,7 @@
 - **Reliability:** High availability and fault tolerance.
 - **Security:** Built-in security features.
 
----
+
 
 ## 2. AWS Global Infrastructure
 
