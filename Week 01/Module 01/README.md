@@ -447,7 +447,7 @@ AWS’s global infrastructure is like a network of super-secure, well-connected 
 
 When you own physical servers, you can touch and manage them directly. But with AWS, everything is virtual—you manage your resources using software, not by physically plugging in cables!
 
----
+-
 
 ## 🔗 How Do You Interact with AWS?
 
