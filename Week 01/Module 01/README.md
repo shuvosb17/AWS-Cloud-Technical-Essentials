@@ -1506,3 +1506,103 @@ Imagine you want to open a small online store:
 **In summary:**
 
 You launched a cloud server, set up basic security, gave it the right permissions, and automated the app setup—all with just a few clicks. This is the foundation for running real applications on AWS!
+
+
+
+# 🖥️ Default Amazon Machine Image (AMI) for Amazon EC2
+
+## What Changed?
+
+- **Amazon Machine Image (AMI):**
+An AMI is like a template for your cloud server (EC2 instance). It includes the operating system and basic software.
+- **Update:**
+As of March 15, 2023, the default AMI is now **Amazon Linux 2023** (was previously Amazon Linux 2).
+
+---
+
+## Why Does This Matter?
+
+- The **user data script** (setup instructions for your app) shown in the course videos works with **Amazon Linux 2**.
+- If you use the new **Amazon Linux 2023** AMI, the old script won’t work properly.
+
+---
+
+## What Should You Do?
+
+| If you use... | Do this: |
+| --- | --- |
+| Amazon Linux 2 AMI | Use the original script from the videos |
+| Amazon Linux 2023 AMI | Use the updated script below |
+
+---
+
+## 🖼️ Diagram: Choosing the Right AMI & Script
+
+```
++-------------------+         +-------------------+
+|  Amazon Linux 2   |         | Amazon Linux 2023 |
++-------------------+         +-------------------+
+| Use old script    |         | Use new script    |
++-------------------+         +-------------------+
+
+```
+
+---
+
+## 🐱 Real-World Example
+
+Imagine you’re following a recipe (user data script) for a cake, but the oven (AMI) has changed.
+
+- If you use the old oven, follow the recipe as written.
+- If you use the new oven, you need a slightly different recipe!
+
+---
+
+## 📝 User Data Scripts
+
+**Amazon Linux 2 Script:**
+
+```bash
+#!/bin/bash -ex
+wget <https://aws-tc-largeobjects.s3-us-west-2.amazonaws.com/DEV-AWS-MO-GCNv2/FlaskApp.zip>
+unzip FlaskApp.zip
+cd FlaskApp/
+yum -y install python3 mysql
+pip3 install -r requirements.txt
+amazon-linux-extras install epel
+yum -y install stress
+export PHOTOS_BUCKET=${SUB_PHOTOS_BUCKET}
+export AWS_DEFAULT_REGION=<INSERT REGION HERE>
+export DYNAMO_MODE=on
+FLASK_APP=application.py /usr/local/bin/flask run --host=0.0.0.0 --port=80
+
+```
+
+**Amazon Linux 2023 Script:**
+
+```bash
+#!/bin/bash -ex
+wget <https://aws-tc-largeobjects.s3-us-west-2.amazonaws.com/DEV-AWS-MO-GCNv2/FlaskApp.zip>
+unzip FlaskApp.zip
+cd FlaskApp/
+yum -y install python3-pip
+pip install -r requirements.txt
+yum -y install stress
+export PHOTOS_BUCKET=${SUB_PHOTOS_BUCKET}
+export AWS_DEFAULT_REGION=<INSERT REGION HERE>
+export DYNAMO_MODE=on
+FLASK_APP=application.py /usr/local/bin/flask run --host=0.0.0.0 --port=80
+
+```
+
+**Remember:**
+
+Replace `<INSERT REGION HERE>` with your AWS region (like `us-east-1`), and remove the brackets.
+
+---
+
+**In summary:**
+
+If you use Amazon Linux 2, follow the video exactly.
+
+If you use Amazon Linux 2023, use the updated script above so your app launches correctly!
