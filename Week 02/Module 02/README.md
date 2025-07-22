@@ -414,3 +414,143 @@ Imagine you're running a pizza delivery service:
 
 **In summary:**  
 EC2 instances go through different states (pending → running → stopped/terminated). Choose the right instance family for your workload, plan for high availability with multiple instances, and pick the pricing model that fits your usage pattern!
+
+
+
+
+Here's a clear, beginner-friendly summary of **Demonstration: Launching the Employee Directory Application** with a step-by-step guide, diagram, and easy explanations:
+
+
+
+
+
+# 🚀 Demonstration: Launching the Employee Directory Application: 
+
+## What Happened in the Demo?
+
+The instructor launched an EC2 instance to run the Employee Directory application using the AWS console.
+
+---
+
+## 📋 Step-by-Step Process
+
+### 1. Navigate to EC2 and Launch Instance
+- Go to EC2 dashboard in AWS console
+- Click "Launch Instance"
+- Give it a name: "employee directory app"
+
+### 2. Choose AMI (Amazon Machine Image)
+- Selected **Amazon Linux 2023 AMI**
+- AMI = template with operating system and pre-installed software
+- Other options: AWS Marketplace AMIs, custom AMIs, organization-approved AMIs
+
+### 3. Select Instance Type
+- Chose **t2.micro** (free tier eligible)
+- Determines CPU, memory, and hardware specs
+- Some instances include GPUs for special workloads
+
+### 4. Configure Key Pair
+- Selected "Proceed without a key pair"
+- Alternative: Can connect via AWS console's "Connect" button
+- Key pairs normally used for SSH access
+
+### 5. Network Settings
+- Used **default VPC** and **default subnet**
+- Default VPC has internet access (internet gateway attached)
+- Enabled **auto-assign public IP** for direct access
+
+### 6. Configure Security Group (Firewall)
+- **Disabled SSH** (not needed)
+- **Enabled HTTP** (port 80) for web traffic
+- **Enabled HTTPS** (port 443) for secure web traffic
+
+### 7. Storage Configuration
+- Left default root volume
+- No additional EBS volumes added
+
+### 8. Advanced Settings
+- **IAM Instance Profile:** Selected "employee web app role"
+- Role allows access to S3 and DynamoDB
+- **User Data Script:** Added bash script to set up the application
+
+---
+
+## 🖼️ Architecture Diagram
+
+````plaintext
++-------------------+
+|   User's Browser  |
++-------------------+
+         |
+         v (HTTP/HTTPS)
++-------------------+
+| EC2 Instance      |
+| - Amazon Linux    |
+| - Flask App       |
+| - Public IP       |
++-------------------+
+         |
+         v (Future connections)
++-------------------+      +-------------------+
+|       S3          |      |    DynamoDB       |
+| (Employee Photos) |      | (Employee Data)   |
++-------------------+      +-------------------+
+````
+
+---
+
+## 📝 User Data Script Breakdown
+
+The script automatically sets up the application:
+
+````bash
+#!/bin/bash -ex                                    # Bash script declaration
+wget [S3-ZIP-URL]                                  # Download app files
+unzip FlaskApp.zip                                 # Extract files
+cd FlaskApp/                                       # Navigate to app folder
+yum -y install python3-pip                        # Install Python & pip
+pip install -r requirements.txt                   # Install app dependencies
+yum -y install stress                              # Install stress testing tool
+export PHOTOS_BUCKET=${SUB_PHOTOS_BUCKET}         # Set S3 bucket variable
+export AWS_DEFAULT_REGION=us-west-2                # Set AWS region
+export DYNAMO_MODE=on                              # Enable DynamoDB mode
+FLASK_APP=application.py /usr/local/bin/flask run --host=0.0.0.0 --port=80  # Start app
+````
+
+---
+
+## ⏱️ Launch Process
+
+1. **Instance State:** Pending → Running
+2. **Status Checks:** Wait for both to pass
+   - System status check
+   - Instance status check
+3. **Access:** Copy public IP address and open in browser
+
+---
+
+## 🐱 Real-World Example
+
+Think of this like setting up a food truck:
+1. **Choose the truck** (AMI = truck type)
+2. **Pick engine size** (instance type = truck capabilities)
+3. **Get permits** (security group = what traffic is allowed)
+4. **Park in public spot** (public IP = customers can find you)
+5. **Install equipment** (user data script = set up kitchen automatically)
+6. **Open for business** (application running and accessible)
+
+---
+
+## 🎯 Current State
+
+- **✅ What Works:** Application launches and displays empty employee directory
+- **⏳ What's Missing:** 
+  - S3 bucket (for storing employee photos)
+  - DynamoDB table (for storing employee data)
+  - Custom VPC (more secure networking)
+  - High availability setup
+
+---
+
+**In summary:**  
+Successfully launched an EC2 instance running the Employee Directory application! The app is accessible via public IP but shows empty data since the database and storage components haven't been set up yet. Next steps will include adding S3, DynamoDB, and custom networking.
