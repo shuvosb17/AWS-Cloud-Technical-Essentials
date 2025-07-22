@@ -264,3 +264,153 @@ You customize a car perfectly for your business, then order 10 more exactly like
 **In summary:**
 
 EC2 gives you virtual servers in the cloud with complete control. Choose the right AMI and instance type for your needs, and create your own AMIs to easily replicate successful server configurations!
+
+
+
+# 🔄 Amazon EC2 Instance Lifecycle: 
+
+## What Makes Up an EC2 Instance?
+
+An EC2 instance is a combination of:
+- **vCPUs** (virtual processors)
+- **Memory** (RAM)
+- **Network** capacity
+- **Storage** (sometimes local, sometimes external)
+- **GPUs** (for graphics-intensive work, optional)
+
+---
+
+## Instance Types and Families
+
+Instance types follow a naming pattern: **c5.large**
+- **c5** = instance family and generation (5th generation compute-optimized)
+- **large** = size/capacity
+
+### Instance Family Types
+
+| Family Type | Best For | Example Use Cases |
+|-------------|----------|-------------------|
+| **General Purpose** | Balanced resources | Web servers, small databases |
+| **Compute Optimized** | CPU-heavy tasks | Scientific computing, gaming servers |
+| **Memory Optimized** | RAM-intensive work | Large databases, analytics |
+| **Accelerated Computing** | GPU/specialized hardware | 3D rendering, machine learning |
+| **Storage Optimized** | High-speed storage | NoSQL databases, data warehousing |
+
+---
+
+## 🖼️ EC2 Instance Lifecycle Diagram
+
+````plaintext
++-------------------+
+|     PENDING       | <-- Setting up (no billing yet)
++-------------------+
+         |
+         v
++-------------------+
+|     RUNNING       | <-- Ready to use (billing starts)
++-------------------+
+    |    |    |
+    v    v    v
++--------+ +--------+ +--------+
+|REBOOT  | | STOP   | |TERMINATE|
++--------+ +--------+ +--------+
+    |         |           |
+    v         v           v
++--------+ +--------+ +--------+
+| RUNNING| |STOPPED | |TERMINATED|
++--------+ +--------+ +--------+
+             |
+             v
+         +--------+
+         | START  |
+         +--------+
+             |
+             v
+         +--------+
+         | RUNNING|
+         +--------+
+````
+
+---
+
+## Instance State Actions
+
+| Action | What Happens | IP Address | Data on Instance Store | Billing |
+|--------|--------------|------------|----------------------|---------|
+| **Reboot** | Restart OS on same server | Keeps same | Keeps data | Continues |
+| **Stop/Start** | Move to new server | New public, same private | Loses data | Stops/resumes |
+| **Terminate** | Permanently delete | Loses both | Loses data | Stops forever |
+| **Stop-Hibernate** | Save RAM to disk | New public, same private | Saves RAM data | Stops |
+
+---
+
+## High Availability Best Practices
+
+**Problem:** Single instance = single point of failure
+**Solution:** Use multiple instances across different Availability Zones
+
+````plaintext
++-------------------+         +-------------------+
+|   AZ-1 (US-East)  |         |   AZ-2 (US-East)  |
+|  +-------------+  |         |  +-------------+  |
+|  | EC2 Instance|  |         |  | EC2 Instance|  |
+|  +-------------+  |         |  +-------------+  |
++-------------------+         +-------------------+
+````
+
+**Better:** If one instance fails, the other keeps your app running!
+
+---
+
+## 💰 EC2 Pricing Options
+
+### 1. On-Demand Instances
+- **Pay as you go** (per second/hour)
+- **No commitment**
+- **Most expensive** but most flexible
+- **Best for:** Unpredictable workloads, testing
+
+### 2. Reserved Instances (RIs)
+- **Commit for 1-3 years**
+- **Big discounts** (up to 75% off)
+- **Payment options:** All upfront, partial upfront, no upfront
+- **Best for:** Steady, predictable workloads (like web servers)
+
+### 3. Spot Instances
+- **Use spare AWS capacity**
+- **Up to 90% discount**
+- **Can be interrupted** with 2-minute warning
+- **Best for:** Fault-tolerant work (batch processing, testing)
+
+---
+
+## 🖼️ Pricing Comparison Diagram
+
+````plaintext
+Cost
+ ^
+ |
+ |  +-----------+ On-Demand (Most expensive, most flexible)
+ |  |           |
+ |  |     +-----+ Reserved (Medium cost, 1-3 year commitment)
+ |  |     |     |
+ |  |     | +---+ Spot (Cheapest, can be interrupted)
+ |  |     | |   |
+ +--|-----|-----|----> Time
+    1     2     3
+````
+
+---
+
+## 🐱 Real-World Example
+
+Imagine you're running a pizza delivery service:
+
+- **On-Demand:** Rent delivery cars by the hour—expensive but flexible
+- **Reserved:** Lease cars for 1-3 years—cheaper if you need them regularly
+- **Spot:** Use surplus rental cars—cheapest, but they might take them back with short notice
+
+---
+
+**In summary:**  
+EC2 instances go through different states (pending → running → stopped/terminated). Choose the right instance family for your workload, plan for high availability with multiple instances, and pick the pricing model that fits your usage pattern!
