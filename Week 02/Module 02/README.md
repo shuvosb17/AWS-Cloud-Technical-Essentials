@@ -995,3 +995,185 @@ Fargate supports cost optimization features:
 
 **In summary:**  
 AWS Fargate lets you run containers without managing servers. You define what your app needs (CPU, memory), and AWS handles all the infrastructure management, scaling, and maintenance. Perfect for when you want the benefits of containers without the operational overhead!
+
+
+Here's a clear, beginner-friendly summary of **AWS Lambda: Serverless Computing** with diagrams, step-by-step demo, and easy explanations:
+
+---
+
+
+# ⚡ AWS Lambda: Serverless Computing:
+
+## What is AWS Lambda?
+
+- **AWS Lambda** is a serverless compute service that runs your code without managing servers.
+- You upload your code as a **Lambda function**.
+- Functions run only when **triggered**—not running 24/7 like EC2 instances.
+- **Perfect for:** Quick processing tasks, event-driven applications, microservices.
+
+---
+
+## How Lambda Works
+
+1. **Upload your code** to create a Lambda function
+2. **Configure a trigger** (what starts your function)
+3. **AWS waits** for the trigger event
+4. **When triggered,** AWS runs your code automatically
+5. **Function scales** from 1 to 1,000+ concurrent executions
+6. **Pay only** for actual execution time (rounded to nearest millisecond)
+
+---
+
+## 🖼️ Lambda Trigger Examples
+
+````plaintext
++-------------------+         +-------------------+
+|   HTTP Request    |  ---->  |   Lambda Function |
++-------------------+         +-------------------+
+
++-------------------+         +-------------------+
+|   S3 File Upload  |  ---->  |   Lambda Function |
++-------------------+         +-------------------+
+
++-------------------+         +-------------------+
+|   Mobile App Event|  ---->  |   Lambda Function |
++-------------------+         +-------------------+
+````
+
+---
+
+## Lambda Limitations
+
+| Feature | Limit |
+|---------|-------|
+| **Maximum Runtime** | 15 minutes |
+| **Memory** | 128 MB to 10,240 MB |
+| **Good For** | Quick processing, web backends, microservices |
+| **Not Good For** | Long-running processes, deep learning, WordPress sites |
+
+---
+
+## 🎯 Demo: Image Resize Function
+
+### Use Case
+When someone uploads a photo to the employee directory, automatically create a thumbnail version.
+
+### Architecture
+````plaintext
++-------------------+         +-------------------+         +-------------------+
+|   User Uploads    |  ---->  |   S3 Bucket       |  ---->  | Lambda Function   |
+|   Photo to S3     |         |   (input folder)  |         | (ResizeImage)     |
++-------------------+         +-------------------+         +-------------------+
+                                                                      |
+                                                                      v
+                              +-------------------+         +-------------------+
+                              |   S3 Bucket       |  <----  | Resized Image     |
+                              |   (output folder) |         | Created           |
+                              +-------------------+         +-------------------+
+````
+
+---
+
+## 📋 Step-by-Step Demo Process
+
+### 1. Create Lambda Function
+- Go to AWS Lambda console
+- Click **"Create function"**
+- Choose **"Author from scratch"**
+- Function name: **ResizeImage**
+- Runtime: **Python 3.9**
+- Permissions: Use existing role **LambdaS3FullAccess**
+
+### 2. Configure S3 Trigger
+- Click **"Add trigger"**
+- Trigger source: **S3**
+- Bucket: **photo-upload-bucket-mw**
+- Event type: **PUT** (file uploads)
+- Prefix: **input/** (only trigger for files in input folder)
+- Acknowledge recursive invocation warning
+
+### 3. Upload Function Code
+- Go to **Code tab**
+- Click **"Upload from" → "zip file"**
+- Upload **ResizeImage.zip**
+- Click **Save**
+
+### 4. Test the Function
+- Go to S3 bucket
+- Upload image to **input/** folder
+- Check **output/** folder for resized thumbnail
+
+---
+
+## 🖼️ Lambda Function Components
+
+````plaintext
++-------------------+
+|   Function Code   |  <-- Your application logic
++-------------------+
+         |
+         v
++-------------------+
+|     Trigger       |  <-- What starts the function
++-------------------+
+         |
+         v
++-------------------+
+|   IAM Role        |  <-- Permissions to access other AWS services
++-------------------+
+         |
+         v
++-------------------+
+|   Runtime Env     |  <-- Managed by AWS (Python, Node.js, etc.)
++-------------------+
+````
+
+---
+
+## Lambda vs EC2 Comparison
+
+| Factor | Lambda | EC2 |
+|--------|---------|-----|
+| **Management** | Serverless (AWS manages) | You manage servers |
+| **Scaling** | Automatic | Manual setup required |
+| **Billing** | Pay per execution | Pay for running time |
+| **Runtime** | Max 15 minutes | Unlimited |
+| **Use Cases** | Event-driven, quick tasks | Long-running applications |
+
+---
+
+## 🐱 Real-World Example
+
+**Traditional Approach (EC2):**
+Like hiring a full-time photographer who sits at your store all day waiting for customers to take photos—expensive!
+
+**Lambda Approach:**
+Like calling a photographer only when you need them—they show up, take the photo, process it, and leave. You only pay for the time they actually work.
+
+---
+
+## Common Lambda Use Cases
+
+- **Image/video processing** (like the demo)
+- **Web API backends** (handle HTTP requests)
+- **Data processing** (process files, logs, streams)
+- **IoT backends** (respond to sensor data)
+- **Chatbots** (process messages)
+- **Scheduled tasks** (daily reports, cleanup jobs)
+
+---
+
+## Benefits of Lambda
+
+| Benefit | Description |
+|---------|-------------|
+| **No Server Management** | AWS handles all infrastructure |
+| **Automatic Scaling** | From 0 to 1000+ concurrent executions |
+| **Pay-per-Use** | Only pay for actual execution time |
+| **High Availability** | Built-in fault tolerance |
+| **Multiple Languages** | Python, Node.js, Java, C#, Go, Ruby |
+
+---
+
+**In summary:**  
+AWS Lambda lets you run code without managing servers. Perfect for event-driven applications where you want to respond to triggers (like file uploads) quickly and cost-effectively. You only pay for what you use, and AWS handles all the scaling and infrastructure management!
