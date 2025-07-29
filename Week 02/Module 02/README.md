@@ -1344,7 +1344,7 @@ Like using food trucks for a festival—quick to set up, easy to move around, an
 
 **In summary:**
 Choose your compute service based on your specific needs: EC2 for control and migrations, Lambda for events and cost efficiency, and Containers for modern microservices architecture. The right choice depends on your use case, not just what's newest or coolest!
-````
+
 
  # 📖 Reading 2.4: Serverless and AWS Lambda
 
@@ -1392,10 +1392,10 @@ Think of it like housing options:
 ┌─────────────────────────────────────────────────────────────┐
 │                    Container Deployment                     │
 ├─────────────────────────┬───────────────────────────────────┤
-│     Amazon EC2 Mode     │        AWS Fargate Mode          │
+│     Amazon EC2 Mode     │        AWS Fargate Mode           │
 ├─────────────────────────┼───────────────────────────────────┤
 │ You manage:             │ AWS manages:                      │
-│ • EC2 instances         │ • All infrastructure             │
+│ • EC2 instances         │ • All infrastructure              │
 │ • Cluster capacity      │ • Scaling                         │
 │ • Infrastructure        │ • Capacity planning               │
 │                         │                                   │
@@ -1418,13 +1418,13 @@ Think of it like housing options:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                   AWS Lambda Function                      │
+│                   AWS Lambda Function                       │
 ├─────────────────┬─────────────────┬─────────────────────────┤
 │    TRIGGER      │      CODE       │     CONFIGURATION       │
 │    (WHEN)       │     (WHAT)      │        (HOW)            │
 ├─────────────────┼─────────────────┼─────────────────────────┤
-│ • API Gateway   │ • From scratch  │ • Runtime (Python,     │
-│ • S3 Events     │ • AWS Blueprint │   Node.js, etc.)       │
+│ • API Gateway   │ • From scratch  │ • Runtime (Python,      │
+│ • S3 Events     │ • AWS Blueprint │   Node.js, etc.)        │
 │ • CloudWatch    │ • Serverless    │ • Memory allocation     │
 │ • DynamoDB      │   App Repo      │ • Environment vars      │
 │ • EventBridge   │                 │ • Network placement     │
@@ -1492,13 +1492,13 @@ def process_data(event):
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    AWS Lambda Pricing                      │
+│                    AWS Lambda Pricing                       │
 ├─────────────────────┬───────────────────────────────────────┤
 │      REQUESTS       │            DURATION                   │
 ├─────────────────────┼───────────────────────────────────────┤
-│ • Per invocation    │ • Rounded to nearest 1ms             │
-│ • Very low cost     │ • Memory allocation affects price    │
-│ • First 1M free     │ • Only pay while code runs           │
+│ • Per invocation    │ • Rounded to nearest 1ms              │
+│ • Very low cost     │ • Memory allocation affects price     │
+│ • First 1M free     │ • Only pay while code runs            │
 └─────────────────────┴───────────────────────────────────────┘
 ```
 
@@ -1541,5 +1541,6 @@ In the next unit, you'll learn when to use:
 - ⚡ **AWS Lambda**: Event-driven functions
 
 Each service has its place in the AWS ecosystem! 🌟
+
 
 
