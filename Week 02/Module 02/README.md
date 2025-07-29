@@ -1182,7 +1182,6 @@ AWS Lambda lets you run code without managing servers. Perfect for event-driven 
 # ⚡Choose the Right Compute Service:
 ---
 
-````markdown
 # 🎮 Choose the Right AWS Compute Service (Game Show Edition!)
 
 ## The Game Show Format
